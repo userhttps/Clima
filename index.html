@@ -336,8 +336,7 @@
   </footer>
 
   <!-- Scripts -->
-   <script>
-<script type="module">
+  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
@@ -358,7 +357,6 @@
 
   onValue(sensorRef, (snapshot) => {
     const data = snapshot.val();
-
     if (!data) return;
 
     document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
@@ -367,12 +365,10 @@
     document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
 
     const agora = new Date();
-    const hora = agora.toLocaleTimeString("pt-BR", { hour12: false });
-    document.getElementById("sensor-data-hora").textContent = hora;
+    document.getElementById("sensor-data-hora").textContent = agora.toLocaleTimeString("pt-BR", { hour12: false });
   });
 </script>
 
-</script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="particles.min.js"></script>
