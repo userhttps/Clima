@@ -337,30 +337,41 @@
 
   <!-- Scripts -->
    <script>
-  async function carregarDadosSensor() {
-    try {
-      const res = await fetch("https://clima-consciente-default-rtdb.firebaseio.com/sensores.json");
-      const data = await res.json();
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
-      if (!data) return;
+  const firebaseConfig = {
+    apiKey: "AIzaSyAROQMU2EuiXry4e1J6tx41bZcdLS4ICM8",
+    authDomain: "climaconsciente-131f2.firebaseapp.com",
+    databaseURL: "https://climaconsciente-131f2-default-rtdb.firebaseio.com",
+    projectId: "climaconsciente-131f2",
+    storageBucket: "climaconsciente-131f2.appspot.com",
+    messagingSenderId: "976750168962",
+    appId: "1:976750168962:web:e659b18d0a27e7c2105580"
+  };
 
-      // Captura o último item enviado
-      const chaves = Object.keys(data);
-      const ultima = data[chaves[chaves.length - 1]];
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-      document.getElementById("sensor-temp").textContent = ultima.temperatura.toFixed(1);
-      document.getElementById("sensor-umid").textContent = ultima.umidade.toFixed(0);
-      document.getElementById("sensor-press").textContent = ultima.pressao.toFixed(0);
-      document.getElementById("sensor-heat").textContent = ultima.sensacao_termica.toFixed(1);
-      document.getElementById("sensor-data-hora").textContent = ultima.timestamp || "--:--:--";
-    } catch (e) {
-      console.error("Erro ao buscar dados do Firebase:", e);
-    }
-  }
+  const sensorRef = ref(db, 'sensor');
 
-  // Atualiza a cada 30 segundos
-  setInterval(carregarDadosSensor, 5000);
-  carregarDadosSensor();
+  onValue(sensorRef, (snapshot) => {
+    const data = snapshot.val();
+
+    if (!data) return;
+
+    document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
+    document.getElementById("sensor-umid").textContent = data.umidade?.toFixed(0) ?? "--";
+    document.getElementById("sensor-press").textContent = data.pressao?.toFixed(0) ?? "--";
+    document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
+
+    const agora = new Date();
+    const hora = agora.toLocaleTimeString("pt-BR", { hour12: false });
+    document.getElementById("sensor-data-hora").textContent = hora;
+  });
+</script>
+
 </script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
