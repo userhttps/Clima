@@ -336,7 +336,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
@@ -350,24 +350,29 @@
     appId: "1:976750168962:web:e659b18d0a27e7c2105580"
   };
 
+  // Inicializa app Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const sensorRef = ref(db, 'sensor');
+  // Ref para os dados do sensor conforme seu Arduino envia em "/clima"
+  const sensorRef = ref(db, 'clima');
 
   onValue(sensorRef, (snapshot) => {
     const data = snapshot.val();
     if (!data) return;
 
+    // Atualiza os campos HTML, usando operador opcional para evitar erros
     document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
     document.getElementById("sensor-umid").textContent = data.umidade?.toFixed(0) ?? "--";
     document.getElementById("sensor-press").textContent = data.pressao?.toFixed(0) ?? "--";
     document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
 
+    // Atualiza horário da última atualização exibida
     const agora = new Date();
     document.getElementById("sensor-data-hora").textContent = agora.toLocaleTimeString("pt-BR", { hour12: false });
   });
 </script>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -377,3 +382,4 @@
 </body>
 
 </html>
+
