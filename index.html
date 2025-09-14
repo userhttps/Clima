@@ -335,62 +335,77 @@
 
   <!-- Scripts -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
-const firebaseConfig = {
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
-  apiKey: "AIzaSyADqE8cOi1kUMQgWkFMg5i6jSZtpUnRLOE",
+  const firebaseConfig = {
+    apiKey: "AIzaSyADqE8cOi1kUMQgWkFMg5i6jSZtpUnRLOE",
+    authDomain: "clima-consciente.firebaseapp.com",
+    databaseURL: "https://clima-consciente-default-rtdb.firebaseio.com",
+    projectId: "clima-consciente",
+    storageBucket: "clima-consciente.firebasestorage.app",
+    messagingSenderId: "1022185043717",
+    appId: "1:1022185043717:web:06577ec98b38bd9f70a96c"
+  };
 
-  authDomain: "clima-consciente.firebaseapp.com",
+  // Inicializa Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-  databaseURL: "https://clima-consciente-default-rtdb.firebaseio.com",
+  // Referência correta ao nó "clima"
+  const sensorRef = ref(db, "clima");
 
-  projectId: "clima-consciente",
+  function exibirErro(msg) {
+    console.error(msg);
+  }
 
-  storageBucket: "clima-consciente.firebasestorage.app",
+  // Escuta alterações no Firebase
+  onValue(sensorRef, (snapshot) => {
+    const data = snapshot.val();
 
-  messagingSenderId: "1022185043717",
-
-  appId: "1:1022185043717:web:06577ec98b38bd9f70a96c"
-
-};
-
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-     const sensorRef = firebase.database().ref('/clima');
-
-    function exibirErro(msg) {
-      console.error(msg);
+    if (!data) {
+      console.warn("Nenhum dado encontrado em /clima");
+      return;
     }
 
-    onValue(sensorRef, (snapshot) => {
-      const data = snapshot.val();
-      if (!data) return;
+    console.log("Dados recebidos:", data);
 
-      try {
-        document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
-      } catch { exibirErro("Erro Firebase temp DHT: 404 Not Found"); }
+    try {
+      document.getElementById("sensor-temp").textContent =
+        data.temperatura !== undefined ? data.temperatura.toFixed(1) : "--";
+    } catch {
+      exibirErro("Erro Firebase temp");
+    }
 
-      try {
-        document.getElementById("sensor-umid").textContent = data.umidade?.toFixed(0) ?? "--";
-      } catch { exibirErro("Erro Firebase umidade: 404 Not Found"); }
+    try {
+      document.getElementById("sensor-umid").textContent =
+        data.umidade !== undefined ? data.umidade.toFixed(0) : "--";
+    } catch {
+      exibirErro("Erro Firebase umidade");
+    }
 
-      try {
-        document.getElementById("sensor-press").textContent = data.pressao?.toFixed(0) ?? "--";
-      } catch { exibirErro("Erro Firebase pressao: 404 Not Found"); }
+    try {
+      document.getElementById("sensor-press").textContent =
+        data.pressao !== undefined ? data.pressao.toFixed(0) : "--";
+    } catch {
+      exibirErro("Erro Firebase pressao");
+    }
 
-      try {
-        document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
-      } catch { exibirErro("Erro Firebase temp BMP: 404 Not Found"); }
+    try {
+      document.getElementById("sensor-heat").textContent =
+        data.sensacao_termica !== undefined ? data.sensacao_termica.toFixed(1) : "--";
+    } catch {
+      exibirErro("Erro Firebase sensação térmica");
+    }
 
-      const agora = new Date();
-      document.getElementById("sensor-data-hora").textContent = agora.toLocaleTimeString("pt-BR", { hour12: false });
-    }, {
-      onlyOnce: false,
-      error: (err) => console.error("Erro ao ler dados do Firebase:", err)
-    });
-  </script>
+    const agora = new Date();
+    document.getElementById("sensor-data-hora").textContent =
+      agora.toLocaleTimeString("pt-BR", { hour12: false });
+  }, (err) => {
+    console.error("Erro ao ler dados do Firebase:", err);
+  });
+</script>
+
 
   <!-- Scripts Adicionais -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -399,6 +414,7 @@ const firebaseConfig = {
   <script src="/js/clima.js"></script>
 </body>
 </html>
+
 
 
 
