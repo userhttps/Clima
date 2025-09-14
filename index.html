@@ -5,10 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clima Consciente | Sustentabilidade Inteligente</title>
   <meta name="description" content="Plataforma avançada de monitoramento e conscientização climática">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/modernizr.js"></script>
+  <style>
+    /* Estilos para o popup */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9998;
+    }
+    
+    .popup-container {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 900px;
+      height: 80vh;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      overflow: hidden;
+    }
+    
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #117A65;
+      color: white;
+    }
+    
+    .popup-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .popup-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    
+    .popup-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .popup-content {
+      height: calc(100% - 60px);
+      padding: 0;
+    }
+    
+    .popup-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* Estilo para o botão de monitoramento */
+    .monitor-btn-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .btn-monitor {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 25px;
+      background: #117A65;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(17, 122, 101, 0.3);
+    }
+    
+    .btn-monitor:hover {
+      background: #0B5345;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(17, 122, 101, 0.4);
+    }
+    
+    .btn-monitor i {
+      margin-right: 8px;
+    }
+    
+    .btn-hint {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
   <!-- Preloader -->
@@ -85,7 +195,7 @@
 
     <div class="hero-image">
       <div class="image-container">
-        <img src="/img/earth-globe.svg" Visualização 3D do planeta Terra" class="parallax-layer" data-depth="0.2">
+        <img src="/img/earth-globe.svg" alt="Visualização 3D do planeta Terra" class="parallax-layer" data-depth="0.2">
       </div>
     </div>
   </section>
@@ -139,34 +249,29 @@
       <p class="section-description">Acompanhe as condições atuais em diferentes regiões</p>
     </div>
 
+    <!-- Botão de Acesso ao Monitoramento -->
+    <div class="monitor-btn-container">
+      <button id="monitor-btn" class="btn-monitor">
+        <i class="fas fa-chart-line"></i> Acessar Monitoramento do Prototipo
+      </button>
+      
+    </div>
+
     <div class="monitoring-grid">
       <div class="location-selector">
- <select id="cidade-select" class="styled-select">Add commentMore actions
+        <select id="cidade-select" class="styled-select">
           <option value="São Paulo">São Paulo</option>
           <option value="Rio de Janeiro">Rio de Janeiro</option>
           <option value="Fortaleza">Fortaleza</option>
-          <option value="Manaus">Manaus</option>Add commentMore actions
+          <option value="Manaus">Manaus</option>
         </select>
         <button id="atualizar-clima" class="btn btn-outline">
           <i class="fas fa-sync-alt"></i>
           Atualizar
         </button>
       </div>
-<div class="sensor-card">
-  <div class="sensor-header">
-    <h3>Protótipo Local</h3>
-    <span id="sensor-data-hora" class="weather-date">--:--:--</span>
-  </div>
-  <div class="sensor-content">
-    <div class="sensor-info">
-      <p><strong>Temperatura:</strong> <span id="sensor-temp">--</span> °C</p>
-      <p><strong>Umidade:</strong> <span id="sensor-umid">--</span> %</p>
-      <p><strong>Pressão:</strong> <span id="sensor-press">--</span> hPa</p>
-      <p><strong>Sensação térmica:</strong> <span id="sensor-heat">--</span> °C</p>
-    </div>
-  </div>
-</div>
-
+      
+    
       <div class="weather-card">
         <div class="weather-header">
           <h3 id="cidade-nome">São Paulo</h3>
@@ -333,90 +438,148 @@
     </div>
   </footer>
 
+  <!-- Popup de Monitoramento -->
+  <div class="popup-overlay" id="popup-overlay"></div>
+  
+  <div class="popup-container" id="popup-container">
+    <div class="popup-header">
+      <div class="popup-title">Monitoramento de Sensores</div>
+      <button class="popup-close" id="close-popup">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="popup-content">
+      <iframe src="about:blank" class="popup-iframe" id="popup-iframe"></iframe>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyADqE8cOi1kUMQgWkFMg5i6jSZtpUnRLOE",
-    authDomain: "clima-consciente.firebaseapp.com",
-    databaseURL: "https://clima-consciente-default-rtdb.firebaseio.com",
-    projectId: "clima-consciente",
-    storageBucket: "clima-consciente.firebasestorage.app",
-    messagingSenderId: "1022185043717",
-    appId: "1:1022185043717:web:06577ec98b38bd9f70a96c"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyAROQMU2EuiXry4e1J6tx41bZcdLS4ICM8",
+      authDomain: "climaconsciente-131f2.firebaseapp.com",
+      databaseURL: "https://climaconsciente-131f2-default-rtdb.firebaseio.com",
+      projectId: "climaconsciente-131f2",
+      storageBucket: "climaconsciente-131f2.appspot.com",
+      messagingSenderId: "976750168962",
+      appId: "1:976750168962:web:e659b18d0a27e7c2105580"
+    };
 
-  // Inicializa Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const sensorRef = ref(db, 'clima');
 
-  // Referência correta ao nó "clima"
-  const sensorRef = ref(db, "clima");
-
-  function exibirErro(msg) {
-    console.error(msg);
-  }
-
-  // Escuta alterações no Firebase
-  onValue(sensorRef, (snapshot) => {
-    const data = snapshot.val();
-
-    if (!data) {
-      console.warn("Nenhum dado encontrado em /clima");
-      return;
+    function exibirErro(msg) {
+      console.error(msg);
     }
 
-    console.log("Dados recebidos:", data);
+    onValue(sensorRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
 
-    try {
-      document.getElementById("sensor-temp").textContent =
-        data.temperatura !== undefined ? data.temperatura.toFixed(1) : "--";
-    } catch {
-      exibirErro("Erro Firebase temp");
-    }
+      try {
+        document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
+      } catch { exibirErro("Erro Firebase temp DHT: 404 Not Found"); }
 
-    try {
-      document.getElementById("sensor-umid").textContent =
-        data.umidade !== undefined ? data.umidade.toFixed(0) : "--";
-    } catch {
-      exibirErro("Erro Firebase umidade");
-    }
+      try {
+        document.getElementById("sensor-umid").textContent = data.umidade?.toFixed(0) ?? "--";
+      } catch { exibirErro("Erro Firebase umidade: 404 Not Found"); }
 
-    try {
-      document.getElementById("sensor-press").textContent =
-        data.pressao !== undefined ? data.pressao.toFixed(0) : "--";
-    } catch {
-      exibirErro("Erro Firebase pressao");
-    }
+      try {
+        document.getElementById("sensor-press").textContent = data.pressao?.toFixed(0) ?? "--";
+      } catch { exibirErro("Erro Firebase pressao: 404 Not Found"); }
 
-    try {
-      document.getElementById("sensor-heat").textContent =
-        data.sensacao_termica !== undefined ? data.sensacao_termica.toFixed(1) : "--";
-    } catch {
-      exibirErro("Erro Firebase sensação térmica");
-    }
+      try {
+        document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
+      } catch { exibirErro("Erro Firebase temp BMP: 404 Not Found"); }
 
-    const agora = new Date();
-    document.getElementById("sensor-data-hora").textContent =
-      agora.toLocaleTimeString("pt-BR", { hour12: false });
-  }, (err) => {
-    console.error("Erro ao ler dados do Firebase:", err);
-  });
-</script>
-
+      const agora = new Date();
+      document.getElementById("sensor-data-hora").textContent = agora.toLocaleTimeString("pt-BR", { hour12: false });
+    }, {
+      onlyOnce: false,
+      error: (err) => console.error("Erro ao ler dados do Firebase:", err)
+    });
+  </script>
 
   <!-- Scripts Adicionais -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/js/particles.min.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/clima.js"></script>
+
+  <!-- Script para controle do popup -->
+  <script>
+    // Elementos do DOM
+    const monitorBtn = document.getElementById('monitor-btn');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const popupContainer = document.getElementById('popup-container');
+    const closePopupBtn = document.getElementById('close-popup');
+    const popupIframe = document.getElementById('popup-iframe');
+    
+    // URL da página de monitoramento
+    const monitorPageUrl = 'monitoramento.html';
+    
+    // Variável para controlar clique único vs duplo clique
+    let clickTimer = null;
+    
+    // Função para abrir o popup
+    function openPopup() {
+      popupIframe.src = monitorPageUrl;
+      popupOverlay.style.display = 'block';
+      popupContainer.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Função para fechar o popup
+    function closePopup() {
+      popupOverlay.style.display = 'none';
+      popupContainer.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      popupIframe.src = 'about:blank';
+    }
+    
+    // Função para abrir em nova página
+    function openNewPage() {
+      window.open(monitorPageUrl, '_blank');
+    }
+    
+    // Event listeners
+    monitorBtn.addEventListener('click', function(e) {
+      // Clique único - abrir popup após um pequeno delay
+      if (clickTimer === null) {
+        clickTimer = setTimeout(function() {
+          openPopup();
+          clickTimer = null;
+        }, 300); // Delay de 300ms para detectar duplo clique
+      }
+    });
+    
+    monitorBtn.addEventListener('dblclick', function(e) {
+      // Cancela o clique único
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      
+      // Abre em nova página
+      openNewPage();
+    });
+    
+    closePopupBtn.addEventListener('click', closePopup);
+    popupOverlay.addEventListener('click', closePopup);
+    
+    // Fechar popup com a tecla ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closePopup();
+      }
+    });
+    
+    // Prevenir que iframe feche o popup ao clicar nele
+    popupContainer.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-

@@ -449,7 +449,7 @@ body {
   width: 100%;
   height: 6px;
   -webkit-appearance: none;
-  background: var(--light-gray);
+  background: var(--light-gray);s
   border-radius: 3px;
   outline: none;
 }
@@ -1190,4 +1190,10 @@ body {
 .sensor-info p {
   margin: 0.5rem 0;
   font-size: 1rem;
+}
+
+.sensor-chart {
+  width: 100% !important;
+  height: 120px !important; /* altura menor */
+  margin-top: 10px;
 }
