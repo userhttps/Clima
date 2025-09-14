@@ -358,7 +358,7 @@ const firebaseConfig = {
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const sensorRef = ref(db, 'clima');
+     const sensorRef = firebase.database().ref('/clima');
 
     function exibirErro(msg) {
       console.error(msg);
@@ -399,6 +399,7 @@ const firebaseConfig = {
   <script src="/js/clima.js"></script>
 </body>
 </html>
+
 
 
 
