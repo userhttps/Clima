@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clima Consciente | Sustentabilidade Inteligente</title>
+  <meta name="description" content="Plataforma avançada de monitoramento e conscientização climática">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/modernizr.js"></script>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="preloader-spinner">
+      <div class="spinner-border"></div>
+    </div>
+  </div>
+
+  <!-- Cursor Personalizado -->
+  <div class="cursor cursor--small"></div>
+  <div class="cursor cursor--large"></div>
+
+  <!-- Header Elegante -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#home" class="logo">
+        <i class="fas fa-leaf"></i>
+        <span>Clima<span class="logo-highlight">Consciente</span></span>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link active"><span>Home</span></a></li>
+          <li><a href="#simulacoes" class="nav-link"><span>Simulações</span></a></li>
+          <li><a href="#calculadora" class="nav-link"><span>Calculadora</span></a></li>
+          <li><a href="#monitoramento" class="nav-link"><span>Monitoramento</span></a></li>
+          <li><a href="#noticias" class="nav-link"><span>Notícias</span></a></li>
+          <li><a href="#forum" class="nav-link"><span>Fórum</span></a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a href="#calculadora" class="btn btn-outline">Calcular Pegada</a>
+        </div>
+      </nav>
+
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section Premium -->
+  <section id="home" class="hero-section">
+    <div class="hero-particles" id="particles-js"></div>
+    <div class="hero-content">
+      <div class="container">
+        <h1 class="hero-title">
+          <span class="title-line">Inteligência Ambiental</span>
+          <span class="title-line">para um Futuro</span>
+          <span class="title-line highlight">Sustentável</span>
+        </h1>
+
+        <p class="hero-subtitle">Tecnologia avançada de monitoramento climático e análise preditiva</p>
+
+        <div class="hero-cta">
+          <a href="#simulacoes" class="btn btn-primary">
+            <span>Explorar Plataforma</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#video-tour" class="btn-play">
+            <i class="fas fa-play"></i>
+            <span>Assista o Tour</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll Down</span>
+      <div class="scroll-line"></div>
+    </div>
+
+    <div class="hero-image">
+      <div class="image-container">
+        <img src="/img/earth-globe.svg" Visualização 3D do planeta Terra" class="parallax-layer" data-depth="0.2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção da Calculadora de Pegada de Carbono -->
+<section id="calculadora" class="section section-calculator">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Conscientização</span>
+      <h2 class="section-title">Calculadora de <span>Pegada Ecológica</span></h2>
+      <p class="section-description">Descubra seu impacto ambiental anual</p>
+    </div>
+
+    <div class="calculator-grid">
+      <form id="form-pegada" class="calculator-form">
+        <div class="form-group">
+          <label for="transporte">Quilômetros rodados por ano:</label>
+          <input type="number" id="transporte" placeholder="Ex: 15000" step="100" min="0">
+          <span class="input-unit">km</span>
+        </div>
+
+        <div class="form-group">
+          <label for="energia">Consumo mensal de energia:</label>
+          <input type="number" id="energia" placeholder="Ex: 300" step="10" min="0">
+          <span class="input-unit">kWh</span>
+        </div>
+
+        <div class="form-group">
+          <label for="alimentacao">Consumo de carne por semana:</label>
+          <input type="number" id="alimentacao" placeholder="Ex: 5" step="0.5" min="0">
+          <span class="input-unit">kg</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <span>Calcular Minha Pegada</span>
+          <i class="fas fa-calculator"></i>
+        </button>
+      </form>
+
+      <div id="resultado-pegada" class="calculator-result"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Seção de Monitoramento Climático -->
+<section id="monitoramento" class="section section-monitoring">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Dados em Tempo Real</span>
+      <h2 class="section-title">Monitoramento <span>Climático</span></h2>
+      <p class="section-description">Acompanhe as condições atuais em diferentes regiões</p>
+    </div>
+
+    <div class="monitoring-grid">
+      <div class="location-selector">
+ <select id="cidade-select" class="styled-select">Add commentMore actions
+          <option value="São Paulo">São Paulo</option>
+          <option value="Rio de Janeiro">Rio de Janeiro</option>
+          <option value="Fortaleza">Fortaleza</option>
+          <option value="Manaus">Manaus</option>Add commentMore actions
+        </select>
+        <button id="atualizar-clima" class="btn btn-outline">
+          <i class="fas fa-sync-alt"></i>
+          Atualizar
+        </button>
+      </div>
+<div class="sensor-card">
+  <div class="sensor-header">
+    <h3>Protótipo Local</h3>
+    <span id="sensor-data-hora" class="weather-date">--:--:--</span>
+  </div>
+  <div class="sensor-content">
+    <div class="sensor-info">
+      <p><strong>Temperatura:</strong> <span id="sensor-temp">--</span> °C</p>
+      <p><strong>Umidade:</strong> <span id="sensor-umid">--</span> %</p>
+      <p><strong>Pressão:</strong> <span id="sensor-press">--</span> hPa</p>
+      <p><strong>Sensação térmica:</strong> <span id="sensor-heat">--</span> °C</p>
+    </div>
+  </div>
+</div>
+
+      <div class="weather-card">
+        <div class="weather-header">
+          <h3 id="cidade-nome">São Paulo</h3>
+          <span id="data-atual" class="weather-date"></span>
+        </div>
+        <div class="weather-content">
+          <div class="weather-icon">
+            <img id="weather-icon" src="" alt="Condição climática">
+          </div>
+          <div class="weather-info">
+            <div class="weather-temp">
+              <span id="weather-temp">--</span>
+              <span class="temp-unit">°C</span>
+            </div>
+            <p id="weather-desc" class="weather-desc">Carregando dados...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Seção de Notícias -->
+<section id="noticias" class="section section-news">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Informação Atualizada</span>
+      <h2 class="section-title">Notícias <span>Ambientais</span></h2>
+      <p class="section-description">Fique por dentro das últimas novidades sobre o clima</p>
+    </div>
+
+    <div class="news-grid">
+      <article class="news-card">
+        <div class="news-image">
+          <img src="images/news-1.jpg" alt="Mudanças climáticas">
+        </div>
+        <div class="news-content">
+          <span class="news-date">15 MAR 2025</span>
+          <h3 class="news-title">Níveis de CO2 atingem novo recorde histórico</h3>
+          <p class="news-excerpt">Concentração de dióxido de carbono na atmosfera supera 420 ppm pela primeira vez...</p>
+          <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-image">
+          <img src="images/news-2.jpg" alt="Energia renovável">
+        </div>
+        <div class="news-content">
+          <span class="news-date">10 MAR 2025</span>
+          <h3 class="news-title">Brasil ultrapassa marca de 50% de energia renovável</h3>
+          <p class="news-excerpt">Matriz energética brasileira alcança marco importante com expansão de solar e eólica...</p>
+          <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-image">
+          <img src="images/news-3.jpg" alt="Reciclagem">
+        </div>
+        <div class="news-content">
+          <span class="news-date">05 MAR 2025</span>
+          <h3 class="news-title">Novas tecnologias transformam lixo em energia limpa</h3>
+          <p class="news-excerpt">Startups desenvolvem soluções inovadoras para aproveitamento de resíduos urbanos...</p>
+          <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Seção do Fórum -->
+<section id="forum" class="section section-forum">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Comunidade</span>
+      <h2 class="section-title">Fórum de <span>Discussão</span></h2>
+      <p class="section-description">Participe da conversa sobre sustentabilidade</p>
+    </div>
+
+    <div class="forum-container">
+      <form id="form-forum" class="forum-form">
+        <div class="form-group">
+          <textarea id="msg-forum" placeholder="Compartilhe seus pensamentos sobre sustentabilidade..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <span>Postar Mensagem</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+
+      <ul id="lista-forum" class="forum-list">
+        <!-- Mensagens serão carregadas aqui via JavaScript -->
+      </ul>
+    </div>
+  </div>
+</section>
+
+  <!-- Rodapé Premium -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col footer-about">
+            <div class="footer-logo">
+              <i class="fas fa-leaf"></i>
+              <span>ClimaConsciente</span>
+            </div>
+            <p>Tecnologia e sustentabilidade trabalhando juntas para um futuro melhor.</p>
+            <div class="footer-social">
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-col footer-links">
+            <h3 class="footer-title">Explorar</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#simulacoes">Simulações</a></li>
+              <li><a href="#calculadora">Calculadora</a></li>
+              <li><a href="#monitoramento">Monitoramento</a></li>
+              <li><a href="#noticias">Notícias</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-contact">
+            <h3 class="footer-title">Contato</h3>
+            <ul>
+              <li><i class="fas fa-envelope"></i> contato@climaconsciente.com</li>
+              <li><i class="fas fa-phone"></i> (85) 98765-4321</li>
+              <li><i class="fas fa-map-marker-alt"></i> Fortaleza, CE - Brasil</li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-newsletter">
+            <h3 class="footer-title">Newsletter</h3>
+            <p>Assine para receber atualizações</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Seu melhor email" required>
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 Clima Consciente. Todos os direitos reservados.</p>
+        <div class="footer-legal">
+          <a href="#">Termos de Uso</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-backtotop">
+      <a href="#home" class="backtotop-btn">
+        <i class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAROQMU2EuiXry4e1J6tx41bZcdLS4ICM8",
+      authDomain: "climaconsciente-131f2.firebaseapp.com",
+      databaseURL: "https://climaconsciente-131f2-default-rtdb.firebaseio.com",
+      projectId: "climaconsciente-131f2",
+      storageBucket: "climaconsciente-131f2.appspot.com",
+      messagingSenderId: "976750168962",
+      appId: "1:976750168962:web:e659b18d0a27e7c2105580"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const sensorRef = ref(db, 'clima');
+
+    function exibirErro(msg) {
+      console.error(msg);
+    }
+
+    onValue(sensorRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      try {
+        document.getElementById("sensor-temp").textContent = data.temperatura?.toFixed(1) ?? "--";
+      } catch { exibirErro("Erro Firebase temp DHT: 404 Not Found"); }
+
+      try {
+        document.getElementById("sensor-umid").textContent = data.umidade?.toFixed(0) ?? "--";
+      } catch { exibirErro("Erro Firebase umidade: 404 Not Found"); }
+
+      try {
+        document.getElementById("sensor-press").textContent = data.pressao?.toFixed(0) ?? "--";
+      } catch { exibirErro("Erro Firebase pressao: 404 Not Found"); }
+
+      try {
+        document.getElementById("sensor-heat").textContent = data.sensacao_termica?.toFixed(1) ?? "--";
+      } catch { exibirErro("Erro Firebase temp BMP: 404 Not Found"); }
+
+      const agora = new Date();
+      document.getElementById("sensor-data-hora").textContent = agora.toLocaleTimeString("pt-BR", { hour12: false });
+    }, {
+      onlyOnce: false,
+      error: (err) => console.error("Erro ao ler dados do Firebase:", err)
+    });
+  </script>
+
+  <!-- Scripts Adicionais -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/particles.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/clima.js"></script>
+</body>
+</html>
+
